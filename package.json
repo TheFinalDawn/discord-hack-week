@@ -1,0 +1,8 @@
+{
+“name”: “hackweek-bot”,
+“version”: “0.0.1”,
+“description”: “Discord Bot for Hack Week”,
+“main”: “bot.js”,
+“author”: “TheFinalDawn, jaiden, Witty Smirk”,
+“dependencies”: {}
+}
