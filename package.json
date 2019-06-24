@@ -1,7 +1,6 @@
 {
 “name”: “hackweek-bot”,
 “version”: “0.0.1”,
-"_last-commit": "Added notices.",
 "_comment": "Version is to be updated on each and every update to the code. Major versions will update the second number, full release is to update the first number. Minor releases will update the 3rd number. 0.0.10 is to be written as 0.1.0.",
 “description”: “Discord Bot for Hack Week”,
 “main”: “bot.js”,
