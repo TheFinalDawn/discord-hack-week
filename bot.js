@@ -27,7 +27,7 @@ client.on('message', message => {
       message.channel.send('pong')
       break;
     case '`help':
-      message.channel.send('ping, `help.')
+      message.channel.send('ping, `help, `.')
       break;
     case '`':
       if (message.author.id == config.owner) {
