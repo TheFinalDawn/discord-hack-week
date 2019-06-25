@@ -29,8 +29,8 @@ bot.on('ready', function (evt) {
 
 bot.on('message', function (user, userID, channelID, message, evt) {
     // The $ is the prefix. Could make it changable.
-    const prefix = 'd$';
-    if (message.substring(0, 1) == prefix && !message.author.bot) {
+    let prefix = "d$";
+    if (message.substring(0, 2) == prefix && !message.author.bot) {
         var args = message.substring(1).split('/ +/');
         var cmd = args[0];
 
