@@ -36,10 +36,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         args = args.splice(1);
         switch(cmd) {
             // !ping
-            case 'ping':
+            case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'Pong!'
+                    message: 'No Commands here yet...' // Update every time you add a cmd.
                 });
             break;
             // Add more cases to add more commands.
