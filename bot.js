@@ -29,8 +29,9 @@ bot.on('ready', function (evt) {
 
 bot.on('message', function (user, userID, channelID, message, evt) {
     // The $ is the prefix. Could make it changable.
-    if (message.substring(0, 1) == '$') {
-        var args = message.substring(1).split(' ');
+    const prefix = '$';
+    if (message.substring(0, 1) == prefix && !message.author.bot) {
+        var args = message.substring(1).split('/ +/');
         var cmd = args[0];
 
         args = args.splice(1);
@@ -39,9 +40,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'help':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'No Commands here yet...' // Update every time you add a cmd.
+                    message: '**General Commands**\nNothing here yet...\n**Debug Commands (hint, they start with $debug!cmdname)**\n$debug!args-test'
+                    // Update every time you add a cmd.
                 });
             break;
+            case 'debug!args-test':
+              if (!args.length) {
+                bot.sendMessage({
+                  to: channelID,
+                  message: `You didn't provide any arguments, ${message.author.userID}!`
+                });
+              }
+              message.channel.send(`Command name: ${cmd}\nArguments: ${args}`);
+              break;
             // Add more cases to add more commands.
 
          }
