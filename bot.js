@@ -30,7 +30,10 @@ client.on('message', message => {
       message.channel.send('ping, `help.')
       break;
     case '`':
-      message.channel.send(`Hello,`)
+      if (message.author.id == config.owner) {
+        message.channel.send(`Hello god`);
+      }
+      message.channel.send(`${message.author.toString()}`);
       break;
   }
 });
