@@ -21,19 +21,28 @@ client.login(config.token);
      logger.info('Logged in as: ');
      logger.info(client.username + ' - (' + client.id + ')');
  });
+ const prefix = "`"
 client.on('message', message => {
-  switch (message.content) {
+  const args = message.content.slice(prefix.length).split(' ');
+  const cmd = args.shift().toLowerCase();
+  switch (cmd) {
     case 'ping':
       message.channel.send('pong')
       break;
-    case '`help':
-      message.channel.send('ping, `help, `.')
+    case 'help':
+      message.channel.send('ping: returns pong.\n`help, this command.\n`annoy, spam the target with messages.')
       break;
-    case '`':
+    case 'annoy':
       if (message.author.id == config.owner) {
         message.channel.send(`Hello god`);
       }
-      message.channel.send(`${message.author.toString()}`);
+      if (!args.length){
+        message.channel.send(`${message.author.toString()} Bruh who am I supposed to spam.`);
+      } else if (args.length == 1) {
+        message.channel.send(`Hey ${args} hey ${args} hey ${args} hey ${args} hey ${args} yeah blame ${message.author.toString()} for this`)
+      } else {
+        message.channel.send('Woah, slow down. I can\'t handle more than one!');
+      }
       break;
   }
 });
