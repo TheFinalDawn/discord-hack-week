@@ -98,5 +98,8 @@ bot.on('message', message => {
       message.channel.send(`${message.author.toString()} Please fill out this form: https://forms.gle/wQYNJ7sR6hmAYSbf8`);
       logger.info('New meme suggested for d!meme. Check Google Forms.');
       break;
+    default:
+    message.channel.send('Sorry, I didn\'t understand that. We\'re you talking to me?');
+    logger.warn('Failed to call command.');
   }
 });
