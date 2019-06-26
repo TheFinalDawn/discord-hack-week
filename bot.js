@@ -1,6 +1,7 @@
 //
 // NOTICE: VERSION IS TO BE UPDATED EVERY UPDATE.
 //
+// list of images for `softwaregore
 const softwaregore = [
   "https://i.redd.it/ox48gwl1tk231.jpg",
   "https://i.redd.it/c6phpvqq9a431.jpg",
@@ -23,23 +24,26 @@ logger.add(new logger.transports.Console, {
 
 logger.level = 'debug';
 const Discord = require('discord.js');
-const client = new Discord.Client();
-client.login(config.token);
- client.on('ready', function (evt) {
+const bot = new Discord.Client();
+bot.login(config.token);
+ bot.on('ready', function (evt) {
      logger.info('Connected');
      logger.info('Logged in as: ');
-     logger.info(client.username + ' - (' + client.id + ')');
+     logger.info(bot.username + ' - (' + bot.id + ')');
  });
  const prefix = "`";
-client.on('message', message => {
+bot.on('message', message => {
+  if (message.author == bot.user) {return} // Just to avoid issues
   const args = message.content.slice(prefix.length).split(' ');
   const cmd = args.shift().toLowerCase();
   switch (cmd) {
     case 'ping':
-      message.channel.send('pong')
+      message.channel.send('pong');
+      logger.info('`ping');
       break;
     case 'help':
-      message.channel.send('ping: returns pong.\n`help, this command.\n`annoy, spam the target with messages.')
+      message.channel.send('ping: returns pong.\n`help, this command.\n`annoy, spam the target with messages.');
+      logger.info('`help');
       break;
     case 'annoy':
       if (message.author.id == config.owner) {
@@ -52,11 +56,13 @@ client.on('message', message => {
       } else {
         message.channel.send('Woah, slow down. I can\'t handle more than one!');
       }
+      logger.info('`annoy');
       break;
     case 'softwaregore':
       message.channel.send(`here, an image from r/softwaregore to show how broken programs are.`, {
       file: softwaregore[Math.floor(Math.random() * softwaregore.length)]
       });
+      logger.info('`softwaregore')
       break;
   }
 });
