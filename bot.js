@@ -31,7 +31,7 @@ bot.login(config.token);
      logger.info('Logged in as: ');
      logger.info(bot.username + ' - (' + bot.id + ')');
  });
- const prefix = "`";
+ const prefix = "d!";
 bot.on('message', message => {
   if (message.author == bot.user) {return} // Just to avoid issues
   const args = message.content.slice(prefix.length).split(' ');
@@ -39,11 +39,11 @@ bot.on('message', message => {
   switch (cmd) {
     case 'ping':
       message.channel.send('pong');
-      logger.info('`ping');
+      logger.info('called ping');
       break;
     case 'help':
-      message.channel.send('ping: returns pong.\n`help, this command.\n`annoy, spam the target with messages.');
-      logger.info('`help');
+      message.channel.send('ping: returns pong.\nd!help, this command.\nd!annoy, spam the target with messages.\nd!softwaregore, get an image from softwaregore (suggested by people like you!). Also check d!software-suggest.\nd!software-suggest, suggest an image to add to d!softwaregore!');
+      logger.info('called d!help');
       break;
     case 'annoy':
       if (message.author.id == config.owner) {
@@ -56,13 +56,16 @@ bot.on('message', message => {
       } else {
         message.channel.send('Woah, slow down. I can\'t handle more than one!');
       }
-      logger.info('`annoy');
+      logger.info('called d!annoy');
       break;
     case 'softwaregore':
-      message.channel.send(`here, an image from r/softwaregore to show how broken programs are.`, {
+      message.channel.send(`here, an image from r/softwaregore to show how broken us programs are.`, {
       file: softwaregore[Math.floor(Math.random() * softwaregore.length)]
       });
-      logger.info('`softwaregore')
+      logger.info('called d!softwaregore')
+      break;
+    case 'software-suggest':
+      message.channel.send(`${message.author.toString()} Go check out https://forms.gle/pfEn2cM7SYHrcRjD8 to suggest an addition. Thank you in advance!`)
       break;
   }
 });
