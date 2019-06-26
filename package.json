@@ -1,8 +1,11 @@
 {
   "name": "hackweek-bot",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Discord Bot for Hack Week",
   "main": "bot.js",
+  "scripts": {
+    "DerpBot": "node ."
+  },
   "author": "TheFinalDawn",
   "dependencies": {
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
