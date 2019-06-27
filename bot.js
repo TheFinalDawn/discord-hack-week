@@ -37,16 +37,16 @@ bot.login(config.token);
      logger.info('Connected');
      logger.info('Logged in as: ');
      logger.info(bot.username + ' - (' + bot.id + ')');
-     bot.user.setActivity(`Derping around on ${bot.guilds.size} servers`)
+     bot.user.setActivity(`Derping around on ${bot.guilds.size} servers!`)
  });
  bot.on("guildCreate", guild => { // joined a server
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  bot.user.setActivity(`Serving ${bot.guilds.size} servers`);
+  bot.user.setActivity(`Serving ${bot.guilds.size} servers!`);
 });
 
 bot.on("guildDelete", guild => { // left/removed from a server
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  bot.user.setActivity(`Serving ${bot.guilds.size} servers`);
+  bot.user.setActivity(`Serving ${bot.guilds.size} servers!`);
 });
  const prefix = "d!";
 bot.on('message', async message => {
@@ -135,5 +135,8 @@ bot.on('message', async message => {
       case '':
         message.channel.send('Uhh...')
         break;
+      default:
+      message.channel.send('Command error.');
+      console.error(`Command error. Command: ${cmd}. Args: ${args}`);
   }
 });
