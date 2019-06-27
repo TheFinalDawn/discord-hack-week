@@ -31,32 +31,59 @@ logger.add(new logger.transports.Console, {
 
 logger.level = 'debug';
 const Discord = require('discord.js');
-const bot = new Discord.Client();
-bot.login(config.token);
- bot.on('ready', function (evt) { // connecting success.
+const Client = new Discord.Client();
+Client.login(config.token);
+ Client.on('ready', function (evt) { // connecting success.
      logger.info('Connected');
      logger.info('Logged in as: ');
-     logger.info(bot.username + ' - (' + bot.id + ')');
-     bot.user.setActivity(`Derping around on ${bot.guilds.size} servers!`)
+     logger.info(Client.user.tag);
+     Client.user.setActivity(`Derping around on ${Client.guilds.size} servers!`)
  });
- bot.on("guildCreate", guild => { // joined a server
+ Client.on("guildCreate", guild => { // joined a server
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  bot.user.setActivity(`Serving ${bot.guilds.size} servers!`);
+  Client.user.setActivity(`Serving ${Client.guilds.size} servers!`);
 });
 
-bot.on("guildDelete", guild => { // left/removed from a server
+Client.on("guildDelete", guild => { // left/removed from a server
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  bot.user.setActivity(`Serving ${bot.guilds.size} servers!`);
+  Client.user.setActivity(`Serving ${Client.guilds.size} servers!`);
 });
  const prefix = "d!";
-bot.on('message', async message => {
-  if (message.author.bot || message.content.indexOf(prefix) !== 0) {return}; // Just to avoid issues
+Client.on('message', async message => {
+  if (message.author.Client || message.content.indexOf(prefix) !== 0) {return}; // Just to avoid issues
   const args = message.content.slice(prefix.length).split(' ');
   const cmd = args.shift().toLowerCase();
   switch (cmd) {
     case 'help':
-      message.channel.send('d!help, this command.\nd!annoy, spam the target with messages.\nd!softwaregore, get an image from softwaregore (suggested by people like you!). Also check d!software-suggest.\nd!software-suggest, suggest an image to add to d!softwaregore!\nd!cmd-suggest, suggest a command to be added.\nd!meme, get a meme. Also see d!meme-suggest.\nd!meme-suggest, you know the drill, added these commands because I\'m lazy and uncreative.\nd!dice, roll a number. (run d!dice -h for info.)\nd!bug, alert the dev to an error (or generally something strange) that happened.');
-      logger.info('called d!help');
+      if (args.length == 0) {
+        message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug');
+      } else if (args[0] == "help") {
+        message.channel.send('**d!help**\nA very simple command, lists all the commands I (currently) respond to.\nUses: d!help, d!help [cmd]');
+      } else if (args[0] == "annoy") {
+        message.channel.send('**d!annoy**\nRun this command to get someone to come back online :wink:\nUses: d!annoy [username (e.g. @nightbot#0001)]');
+      } else if (args[0] == "softwaregore") {
+        message.channel.send('**d!softwaregore**\nGrabs a random image from r/softwaregore to show how broken programs like myself are.\nUses: d!softwaregore');
+      } else if (args[0] == "software-suggest") {
+        message.channel.send('**d!software-suggest**\nPosts a link to a form to fill out. Use this to suggest a tech fail to add to d!softwaregore!\nUses: d!software-suggest');
+      } else if (args[0] == "cmd-suggest") {
+        message.channel.send('**d!cmd-suggest**\nSuggest a command to be added.\nUses: d!cmd-suggest [command, optional description]');
+      } else if (args[0] == "meme") {
+        message.channel.send('**d!meme**\nGrabs a random meme from a list of memes, suggested by users. I\'ll do my best to keep it safe!\nUses: d!meme');
+      } else if (args[0] == "meme-suggest") {
+        message.channel.send('**d!meme-suggest**\nPosts a link to a form, where you can suggest a meme to be added to d!meme!\nUses: d!meme-suggest');
+      } else if (args[0] == "dice") {
+        message.channel.send('**d!dice**\nRoll for a number, be it a dexterity check, useless test, or whatever else it is that needs RNG.\nUses: d!dice (1 to 10), d!dice [max] (1 to max), d!dice [min] [max]');
+      } else if (args[0] == "bug") {
+        message.channel.send('**d!bug**\nReport a bug to the devs!\nUses: d!bug [Description of the error, including what you did. Feel free to link an image here!]');
+      } else if (args[0] == "[COMMAND]") {
+        message.channel.send('**d![COMMAND]**\n[DESCRIPTION]\nUses: [USAGE]');
+        message.channel.send('Okay, I\'m back-- What did you do...')
+        console.warn('Someone ran d!help [COMMAND]!');
+      } else if (args.length < 0) {
+        message.channel.send('Okay, how the actual heck did you manage to get negative arguments. Go run d!bug and explain what you did. And be detailed too, the dev isn\'t a mind reader!\n*Just, give me a second...*');
+        console.error(`Ok something seriously messed up, ${message.author.toString()} managed to get negative arguments with d!help. ${cmd} ${args}`);
+      }
+      logger.info(`called d!help with arguments: ${args}`);
       break;
     case 'annoy':
       if (message.author.id == config.owner) {
@@ -65,7 +92,7 @@ bot.on('message', async message => {
       if (!args.length){
         message.channel.send(`${message.author.toString()} Bruh who am I supposed to spam.`);
       } else if (args.length == 1) {
-        message.channel.send(`Hey ${args} hey ${args} hey ${args} hey ${args} hey ${args} yeah blame ${message.author.toString()} for this`)
+        message.channel.send(`Hey ${args} hey ${args} hey ${args} hey ${args} hey ${args} wake up`)
       } else {
         message.channel.send('Woah, slow down. I can\'t handle more than one!');
       }
