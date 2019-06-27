@@ -31,26 +31,25 @@ logger.add(new logger.transports.Console, {
 
 logger.level = 'debug';
 const Discord = require('discord.js');
-const Client = new Discord.Client();
-Client.login(config.token);
- Client.on('ready', function (evt) { // connecting success.
+const client = new Discord.client();
+client.login(config.token);
+ client.on('ready', function (evt) { // connecting success.
      logger.info('Connected');
-     logger.info('Logged in as: ');
-     logger.info(Client.user.tag);
-     Client.user.setActivity(`Derping around on ${Client.guilds.size} servers!`)
+     logger.info(`Logged in as ${client.user.tag} (${client.user.id})`);
+     client.user.setActivity(`Derping around on ${client.guilds.size} servers!`)
  });
- Client.on("guildCreate", guild => { // joined a server
+ client.on("guildCreate", guild => { // joined a server
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
-  Client.user.setActivity(`Serving ${Client.guilds.size} servers!`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers!`);
 });
 
-Client.on("guildDelete", guild => { // left/removed from a server
+client.on("guildDelete", guild => { // left/removed from a server
   console.log(`I have been removed from: ${guild.name} (id: ${guild.id})`);
-  Client.user.setActivity(`Serving ${Client.guilds.size} servers!`);
+  client.user.setActivity(`Serving ${client.guilds.size} servers!`);
 });
  const prefix = "d!";
-Client.on('message', async message => {
-  if (message.author.Client || message.content.indexOf(prefix) !== 0) {return}; // Just to avoid issues
+client.on('message', message => {
+  if (message.author.bot || message.content.indexOf(prefix) !== 0) {return}; // Just to avoid issues
   const args = message.content.slice(prefix.length).split(' ');
   const cmd = args.shift().toLowerCase();
   switch (cmd) {
@@ -142,8 +141,6 @@ Client.on('message', async message => {
         } else if (args.length == 1 && args[0] != "-h") {
           message.channel.send(`Rolled a ${Math.floor(Math.random() * args[0] + 1)}`);
           logger.info(`Rolled between 1 and ${args[0]}`);
-        } else if (args[0] == "-h") {
-          message.channel.send('Run only d!dice to get a number between 1 and 10. Provide 1 number to get a number between 0 and that number. Give me a minimum and a maximum to get a number between the two.');
         } else {
           message.channel.send(`Rolled a ${Math.floor(Math.random() * 10 + 1)}`);
           logger.info('Rolled between 1 and 10');
