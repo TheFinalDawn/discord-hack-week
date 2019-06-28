@@ -49,6 +49,9 @@ client.on("guildDelete", guild => { // left/removed from a server
 });
  const prefix = "d!";
 client.on('message', message => {
+  if (message.content.indexOf('ping') != -1) {
+    message.channel.send('Pong!');
+  }
   if (message.author.bot || message.content.indexOf(prefix) !== 0) {return}; // Just to avoid issues
   const args = message.content.slice(prefix.length).split(' ');
   const cmd = args.shift().toLowerCase();
