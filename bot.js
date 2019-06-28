@@ -58,7 +58,7 @@ client.on('message', message => {
   switch (cmd) {
     case 'help':
       if (args.length == 0) {
-        message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug');
+        message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice, d!about\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug');
       } else if (args >= 2) {
          return message.channel.send('I can only explain one command at a time!');
       } else if (args[0] == "help") {
@@ -83,6 +83,8 @@ client.on('message', message => {
         message.channel.send('**d![COMMAND]**\n[DESCRIPTION]\nUses: [USAGE]');
         message.channel.send('Okay, I\'m back-- What did you do...')
         console.warn('Someone ran d!help [COMMAND]!');
+      } else if (args[0] == "about") {
+        message.chanel.send('Gives you info about the bot.')
       } else if (args.length < 0) {
         message.channel.send('Okay, how the actual heck did you manage to get negative arguments. Go run d!bug and explain what you did. And be detailed too, the dev isn\'t a mind reader!\n*Just, give me a second...*');
         console.error(`Ok something seriously messed up, ${message.author.toString()} managed to get negative arguments with d!help. ${cmd} ${args}`);
@@ -166,6 +168,15 @@ client.on('message', message => {
         break;
       case 'd!':
         message.channel.send('tH1s1S4f4k3t0K3N8GD8egb3efgb7yq');
+        break;
+      case 'about':
+        message.channel.send('I am DerpBot v0.4. You can see my GitHub repository here: https://github.com/TheFinalDawn/discord-hack-week');
+        message.channel.send('I was created for Discord Hack Week 2019. Pretty ok event.');
+        message.channel.send('~~mainly because I was created~~')
+        .then(msg => {
+          msg.delete(1000)
+        })
+        message.channel.send('Sorry, what happened?');
         break;
       default:
       message.channel.send('Command error.');
