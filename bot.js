@@ -31,7 +31,7 @@ logger.add(new logger.transports.Console, {
 
 logger.level = 'debug';
 const Discord = require('discord.js');
-const client = new Discord.client();
+const client = new Discord.Client();
 client.login(config.token);
  client.on('ready', function (evt) { // connecting success.
      logger.info('Connected');
@@ -91,7 +91,7 @@ client.on('message', message => {
         message.channel.send(`Hello god`);
       }
       if (!args.length){
-        message.channel.send(`${message.author.toString()} Bruh who am I supposed to spam.`);
+        message.channel.send(`${message.author.toString()} Bruh who am I supposed to wake up.`);
       } else if (args.length == 1) {
         message.channel.send(`Hey ${args} hey ${args} hey ${args} hey ${args} hey ${args} wake up`)
       } else {
@@ -160,6 +160,9 @@ client.on('message', message => {
         break;
       case '':
         message.channel.send('Uhh...')
+        break;
+      case 'd!':
+        message.channel.send('tH1s1S4f4k3t0K3N8GD8egb3efgb7yq');
         break;
       default:
       message.channel.send('Command error.');

@@ -1,6 +1,6 @@
 {
   "name": "hackweek-bot",
-  "version": "0.3.4",
+  "version": "0.3.6",
   "description": "Discord Bot for Hack Week",
   "main": "bot.js",
   "scripts": {
