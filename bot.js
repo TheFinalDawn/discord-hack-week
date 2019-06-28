@@ -56,6 +56,8 @@ client.on('message', message => {
     case 'help':
       if (args.length == 0) {
         message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug');
+      } else if (args >= 2) {
+         return message.channel.send('I can only explain one command at a time!');
       } else if (args[0] == "help") {
         message.channel.send('**d!help**\nA very simple command, lists all the commands I (currently) respond to.\nUses: d!help, d!help [cmd]');
       } else if (args[0] == "annoy") {
