@@ -1,6 +1,5 @@
-//
-// NOTICE: VERSION IS TO BE UPDATED EVERY UPDATE.
-//
+// I should really make myself a snippet to make typing message.channel.send() easier.
+
 // list of images for `softwaregore
 const softwaregore = [
   "https://i.redd.it/ox48gwl1tk231.jpg",
@@ -11,7 +10,8 @@ const softwaregore = [
   "https://i.redd.it/dq4q290y0c331.png",
   "https://i.imgur.com/ZAyentM.jpg",
   "https://i.redd.it/3686d9yldk031.jpg",
-]; // Understand that I have no creativity.
+];
+// Understand that I have no creativity.
 const meme = [
   "https://i.redd.it/lv8a11cysp631.png",
   "https://i.redd.it/lyavd2kxsp631.jpg",
@@ -19,24 +19,32 @@ const meme = [
   "https://i.redd.it/kq7j8d7ssp631.jpg",
   "https://i.redd.it/ycl58pvnsp631.jpg",
 ];
-// load materials
-var logger = require('winston');
-var config = require('./config.json');
+// anyway, load materials
+var logger = require('winston'); // Overwatch? That you?
+var config = require('./config.json'); // No I'm not uploading this.
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
     colorize: true
 });
-
 logger.level = 'debug';
+
+// Load discord client
 const Discord = require('discord.js');
 const client = new Discord.Client();
 client.login(config.token);
  client.on('ready', function (evt) { // connecting success.
      logger.info('Connected');
      logger.info(`Logged in as ${client.user.tag} (${client.user.id})`);
-     client.user.setActivity(`Derping around on ${client.guilds.size} servers!`)
+     switch (client.guilds.size) {
+       case 1:
+         client.user.setActivity(`Derping around of ${client.guilds.size} server.`)
+         break;
+        default:
+        client.user.setActivity(`Derping around on ${client.guilds.size} servers with `)
+     }
+     client.user.setActivity(`Derping around on ${client.guilds.size} servers!`);
  });
  client.on("guildCreate", guild => { // joined a server
   console.log(`New guild joined: ${guild.name} (id: ${guild.id}). This guild has ${guild.memberCount} members!`);
@@ -58,7 +66,7 @@ client.on('message', message => {
   switch (cmd) {
     case 'help':
       if (args.length == 0) {
-        message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice, d!about\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug');
+        message.channel.send('note, run d!help [command] for help on that command!\n**General Commands**\nd!help, d!dice, d!about\n\n**Memes!**\nd!softwaregore, d!meme, d!annoy, d!wumpus\n\n**Feedback Commands (The dev\'s \'favorite\')**\nd!cmd-suggest, d!meme-suggest, d!software-suggest, d!bug\n**Mod stuff!**\nd!kick, d!ban');
       } else if (args >= 2) {
          return message.channel.send('I can only explain one command at a time!');
       } else if (args[0] == "help") {
@@ -81,10 +89,12 @@ client.on('message', message => {
         message.channel.send('**d!bug**\nReport a bug to the devs!\nUses: d!bug [Description of the error, including what you did. Feel free to link an image here!]');
       } else if (args[0] == "[COMMAND]") {
         message.channel.send('**d![COMMAND]**\n[DESCRIPTION]\nUses: [USAGE]');
-        message.channel.send('Okay, I\'m back-- What did you do...')
+        message.channel.send('Okay, I\'m back-- What did you do...');
         console.warn('Someone ran d!help [COMMAND]!');
       } else if (args[0] == "about") {
-        message.chanel.send('Gives you info about the bot.')
+        message.chanel.send('Gives you info about the bot.');
+      } else if (args[0] == "wumpus") {
+        message.channel.send('Wumpus.')
       } else if (args.length < 0) {
         message.channel.send('Okay, how the actual heck did you manage to get negative arguments. Go run d!bug and explain what you did. And be detailed too, the dev isn\'t a mind reader!\n*Just, give me a second...*');
         console.error(`Ok something seriously messed up, ${message.author.toString()} managed to get negative arguments with d!help. ${cmd} ${args}`);
@@ -167,19 +177,25 @@ client.on('message', message => {
         message.channel.send('Uhh...')
         break;
       case 'd!':
-        message.channel.send('tH1s1S4f4k3t0K3N8GD8egb3efgb7yq');
+        message.channel.send('tH1s1S4f4k3t0K3N8GD8egb3efgb7yq')
+        .then(msg => {
+          msg.delete(1000);
+        });
         break;
       case 'about':
         message.channel.send('I am DerpBot v0.4. You can see my GitHub repository here: https://github.com/TheFinalDawn/discord-hack-week');
         message.channel.send('I was created for Discord Hack Week 2019. Pretty ok event.');
         message.channel.send('~~mainly because I was created~~')
         .then(msg => {
-          msg.delete(1000)
-        })
+          msg.delete(1000);
+        });
         message.channel.send('Sorry, what happened?');
         break;
+      case 'wumpus':
+        message.channel.send('I am new to discord, and I am wearing a link outfit. https://i.gyazo.com/348085aebc5ae1c96721a0e3b988f8ad.png')
+        break;
       default:
-      message.channel.send('Command error.');
+      message.channel.send('Uhh... You type something wrong there, pal?');
       console.error(`Command error. Command: ${cmd}. Args: ${args}`);
   }
 });
